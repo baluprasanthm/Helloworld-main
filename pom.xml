@@ -46,6 +46,15 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>comgoogle.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.4.0</version>
+             <to>
+                 <image>ghcr.io/baluprasanthm/java-hello-world-with-maven:v2</image>
+             </to>
+            </plugin>
+                
         </plugins>
     </build>
 </project>
