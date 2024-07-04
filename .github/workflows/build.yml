@@ -1,10 +1,10 @@
 name: Build and push Image ACR
 on: 
- workflow_patch
+ workflow_dispatch
 jobs:
  build:
- runs-on: ubuntu-latest
- steps:
+  runs-on: ubuntu-latest
+  steps:
   - uses: actions/checkout@v3
   - name: setup JDK17
     uses: action/setup-java@v3
@@ -13,4 +13,4 @@ jobs:
       distribution: 'temurin'
       cache: maven
   - name: build with maven
-    run: mvn clean package jib:build -Djib.to.auth.username=
+    run: mvn clean package jib:build -Djib.to.auth.username= ${{ github.actor}} -Djib.to.auth.password=${{secrets.TOKEN_GITHUB}}  --file pom.xml
