@@ -42,11 +42,11 @@ on:
 env:
   GITHUB_CONTAINER_REGISTRY: "ghcr.io"
   CONTAINER_NAME: "helloworld"
-  RESOURCE_GROUP: "${{vars.RES_GRP}}"
+  RESOURCE_GROUP: "pcftoaks"
   CLUSTER_NAME: "PcfToAksMigration"
   CHART_PATH: "new-charts"
   CHART_OVERRIDE_PATH: "Chart-overide.yaml"
-  AKS_NAMESPACE: pcfaksns
+  AKS_NAMESPACE: pcfname
 
 jobs:
   buildImage:
@@ -101,7 +101,7 @@ jobs:
       - name: Get K8s context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: ${{vars.RES_GRP}}
+          resource-group: pcftoaks
           cluster-name: ${{ env.CLUSTER_NAME }}
           admin: 'false'
           use-kubelogin: 'true'
@@ -147,7 +147,7 @@ jobs:
             manifests/deployment.yaml
             manifests/service.yaml
           images: |
-            cloudlifeacr.azurecr.io/k8sflask:${{ github.sha }}
+            ghcr.io/mandarada-prashant/helloworld:v2
           imagepullsecrets: |
              k8s-secret
 
