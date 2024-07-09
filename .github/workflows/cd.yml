@@ -147,7 +147,7 @@ jobs:
             manifests/deployment.yaml
             manifests/service.yaml
           images: |
-            ghcr.io/mandarada-prashant/helloworld:v2
+            ghcr.io/baluprasanthm/helloworld:v2
           imagepullsecrets: |
              k8s-secret
 
