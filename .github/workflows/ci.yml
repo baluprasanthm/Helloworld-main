@@ -6,29 +6,29 @@ permissions:
   id-token: write
   contents: read
 
-env:
-#   REGISTRY_NAME: ghcr.io
-    CLUSTER_NAME: PcfToAksMigration
-    RESOURCE_GROUP: rg_fedex_east_us
-    NAMESPACE: default
+# env:
+# #   REGISTRY_NAME: ghcr.io
+#     CLUSTER_NAME: PcfToAksMigration
+#     RESOURCE_GROUP: rg_fedex_east_us
+#     NAMESPACE: default
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
-    # steps:
-    # - uses: actions/checkout@v3
-    # - name: Set up JDK 17
-    #   uses: actions/setup-java@v3
-    #   with:
-    #     java-version: '17'
-    #     distribution: 'temurin'
-    #     cache: maven
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
     
-    # - name: Build with Maven
-    #   run: |
-    #     mvn clean package jib:build -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{secrets.TOKEN_GITHUB}} --file pom.xml
+    - name: Build with Maven
+      run: |
+        mvn clean package jib:build -Djib.to.auth.username=${{ github.actor }} -Djib.to.auth.password=${{secrets.TOKEN_GITHUB}} --file pom.xml
         
         
     # - name: Fetch image from GitHub Package 
