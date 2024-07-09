@@ -106,16 +106,16 @@ jobs:
           admin: 'false'
           use-kubelogin: 'true'
 
-      # Runs Helm to create manifest files
-      - name: Bake deployment
-        uses: azure/k8s-bake@v2.4
-        with:
-          renderEngine: "helm"
-          silent: 'false' # set this to get more verbose helm command logs
-          helmChart: ${{ env.CHART_PATH }}
-          #overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
-          helm-version: "latest"
-        id: bake
+      # # Runs Helm to create manifest files
+      # - name: Bake deployment
+      #   uses: azure/k8s-bake@v2.4
+      #   with:
+      #     renderEngine: "helm"
+      #     silent: 'false' # set this to get more verbose helm command logs
+      #     helmChart: ${{ env.CHART_PATH }}
+      #     #overrideFiles: ${{ env.CHART_OVERRIDE_PATH }}
+      #     helm-version: "latest"
+      #   id: bake
 
       
       - name: Set imagePullSecret
