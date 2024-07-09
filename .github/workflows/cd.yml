@@ -150,6 +150,7 @@ jobs:
             ghcr.io/baluprasanthm/helloworld:v2
           imagepullsecrets: |
              k8s-secret
+          namespace: ${{ env.AKS_NAMESPACE }}
 
       # - name: Install packages    
       #   run: |
