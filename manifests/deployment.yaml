@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: helloworld
-        image: ghcr.io/mandarada-prashant/helloworld:v2
+        image: ghcr.io/baluprasanthm/helloworld:v2
         ports:
         - name:  http
           containerPort: 8080
