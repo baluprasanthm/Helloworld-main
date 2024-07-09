@@ -42,11 +42,11 @@ on:
 env:
   GITHUB_CONTAINER_REGISTRY: "ghcr.io"
   CONTAINER_NAME: "helloworld"
-  RESOURCE_GROUP: "pcftoaks"
+  RESOURCE_GROUP: "${{vars.RES_GRP}}"
   CLUSTER_NAME: "PcfToAksMigration"
   CHART_PATH: "new-charts"
   CHART_OVERRIDE_PATH: "Chart-overide.yaml"
-  AKS_NAMESPACE: "pcfname"
+  AKS_NAMESPACE: pcfaksns
 
 jobs:
   buildImage:
@@ -101,7 +101,7 @@ jobs:
       - name: Get K8s context
         uses: azure/aks-set-context@v3
         with:
-          resource-group: pcftoaks
+          resource-group: ${{vars.RES_GRP}}
           cluster-name: ${{ env.CLUSTER_NAME }}
           admin: 'false'
           use-kubelogin: 'true'
@@ -118,26 +118,38 @@ jobs:
         id: bake
 
       
-     
-      - uses: Azure/k8s-create-secret@v1
+      - name: Set imagePullSecret
+        uses: Azure/k8s-create-secret@v1
         with:
           container-registry-url: ghcr.io
           container-registry-username: ${{ github.actor }}
           container-registry-password: ${{ secrets.TOKEN_GITHUB }}
-          secret-name: ${{ env.GITHUB_CONTAINER_REGISTRY }}-registry-connection
+          secret-name: k8s-secret
 
-      # Deploys application based on manifest files from previous step
-      - name: Deploy application
-        uses: Azure/k8s-deploy@v4
-        with:
-          namespace: pcfname
-          action: deploy
-          manifests: ${{ steps.bake.outputs.manifestsBundle }}
-          images: |
-            ${{ env.GITHUB_CONTAINER_REGISTRY}}/mandarada-prashant/${{ env.CONTAINER_NAME }}:v2
-          imagepullsecrets: |
-               ${{ env.GITHUB_CONTAINER_REGISTRY }}-registry-connection
+
+      # # Deploys application based on manifest files from previous step
+      # - name: Deploy application
+      #   uses: Azure/k8s-deploy@v4
+      #   with:
+      #     namespace: pcfaksns
+      #     action: deploy
+      #     manifests: ${{ steps.bake.outputs.manifestsBundle }}
+      #     images: |
+      #       ${{ env.GITHUB_CONTAINER_REGISTRY}}/mandarada-prashant/${{ env.CONTAINER_NAME }}:v2
+      #     imagepullsecrets: |
+      #          ${{ env.GITHUB_CONTAINER_REGISTRY }}-registry-connection
+      
     
+
+      - uses: Azure/k8s-deploy@v1
+        with:
+          manifests: |
+            manifests/deployment.yaml
+            manifests/service.yaml
+          images: |
+            cloudlifeacr.azurecr.io/k8sflask:${{ github.sha }}
+          imagepullsecrets: |
+             k8s-secret
 
       # - name: Install packages    
       #   run: |
@@ -156,3 +168,13 @@ jobs:
       #           --set image.repository=${GITHUB_CONTAINER_REGISTRY} \  
       #           --set image.tag=v2 
     
+
+  #     - uses: azure/k8s-deploy@v1
+  # with:
+  #   manifests: ${{ steps.bake.outputs.manifestsBundle }}
+  #   images: |
+  #     ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+  #   imagepullsecrets: |
+  #     ${{ env.REGISTRY_NAME }}-registry-connection
+  #   namespace: ${{ env.NAMESPACE }}
+
