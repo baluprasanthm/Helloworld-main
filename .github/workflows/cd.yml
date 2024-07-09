@@ -46,7 +46,7 @@ env:
   CLUSTER_NAME: "PcfToAksMigration"
   CHART_PATH: "new-charts"
   CHART_OVERRIDE_PATH: "Chart-overide.yaml"
-  AKS_NAMESPACE: pcfaksns
+  AKS_NAMESPACE: pcftoaks
 
 jobs:
   buildImage:
