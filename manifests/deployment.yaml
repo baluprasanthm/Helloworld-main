@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Helloword-app
+  name: helloworld-app
   labels:
     app: helloworld
     env: dev
