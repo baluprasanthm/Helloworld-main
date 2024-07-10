@@ -9,7 +9,7 @@
 		<version>3.2.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.rathna.app</groupId>
+	<groupId>com.prashant.app</groupId>
 	<artifactId>helloworld</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>helloworld</name>
@@ -86,7 +86,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>com.rathna.app.HelloSpringWebflux</mainClass>
+					<mainClass>com.prashant.app.HelloSpringWebflux</mainClass>
 
 					<excludes>
 						<exclude>
@@ -102,7 +102,7 @@
 				<version>3.4.0</version>
 				<configuration>
 				<container>
-						<mainClass>com.rathna.app.HelloSpringWebflux</mainClass>
+						<mainClass>com.prashant.app.HelloSpringWebflux</mainClass>
 						<ports>
 							<port>8080</port>
 						</ports>
