@@ -6,6 +6,7 @@ metadata:
     app: helloworld
     env: dev
 spec:
+  progressDeadlineSeconds: 3600
   replicas: 1
   selector:
     matchLabels:
