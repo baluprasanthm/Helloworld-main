@@ -118,13 +118,13 @@ jobs:
         id: bake
 
       
-      - name: Set imagePullSecret
-        uses: Azure/k8s-create-secret@v1
-        with:
-          container-registry-url: ghcr.io
-          container-registry-username: ${{ github.actor }}
-          container-registry-password: ${{ secrets.TOKEN_GITHUB }}
-          secret-name: k8s-secret
+      # - name: Set imagePullSecret
+      #   uses: Azure/k8s-create-secret@v1
+      #   with:
+      #     container-registry-url: ghcr.io
+      #     container-registry-username: ${{ github.actor }}
+      #     container-registry-password: ${{ secrets.TOKEN_GITHUB }}
+      #     secret-name: k8s-secret
 
 
       # Deploys application based on manifest files from previous step
@@ -136,8 +136,8 @@ jobs:
           manifests: ${{ steps.bake.outputs.manifestsBundle }}
           images: |
             ${{ env.GITHUB_CONTAINER_REGISTRY}}/mandarada-prashant/${{ env.CONTAINER_NAME }}:v2
-          imagepullsecrets: |
-               k8s-secret
+          # imagepullsecrets: |
+          #      k8s-secret
       
     
 
